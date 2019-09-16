@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buba.mapper.AddressMapper">
+    <!--List<Address> findAllAddress();-->
+    <select id="findAllAddress" resultType="com.buba.bean.Address">
+        select * from address
+    </select>
+
+    <!--int myModalinsertAddress(Address address);-->
+    <insert id="myModalinsertAddress">
+        insert into address(name,level,pid) values (#{name},#{level},#{pid})
+    </insert>
+
+    <!--int delAddress(Integer id);-->
+    <delete id="delAddress">
+        delete from address where id = #{id}
+    </delete>
+
+    <!--int updateAddress(@Param("id") Integer id,@Param("name") String name);-->
+    <update id="updateAddress">
+        update address set name = #{name} where id = #{id}
+    </update>
+
+    <!--List<User> findUserByAddid(Integer id);-->
+    <select id="findUserByAddid" resultType="com.buba.bean.User">
+        SELECT *
+        FROM `user`,address
+        WHERE `user`.addid = address.id
+        and address.id = #{id}
+    </select>
+</mapper>

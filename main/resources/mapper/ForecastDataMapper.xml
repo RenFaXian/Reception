@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buba.mapper.ForecastDataMapper">
+
+    <!--int insertForecastData(ForecastData forecastData);-->
+    <insert id="insertForecastData">
+        insert into forecast_data(planName,planNumberTables,startTime,endTime,status,entryTime,userid)
+        values (#{planName},#{planNumberTables},#{startTime},#{endTime},0,now(),#{userid})
+    </insert>
+
+    <!--List<ForecastData> findAllForecastData(Integer id);-->
+    <select id="findAllForecastData" resultType="com.buba.bean.ForecastData">
+        select * from forecast_data where userid = #{id} and status = 0
+    </select>
+    
+    <!--int updateForecastDataByID(Integer predictionid);-->
+    <update id="updateForecastDataByID">
+        update forecast_data set status = 1 where id = #{predictionid}
+    </update>
+</mapper>

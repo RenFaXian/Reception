@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buba.mapper.ReportingDataMapper">
+
+    <!--int insertReportingData(ReportingData reportingData);-->
+    <insert id="insertReportingData" useGeneratedKeys="true" keyProperty="id">
+        insert into reporting_data(actualTableCount, newCustomers, oldCustomers, intentionalCustomers,premium, activityTime, userid, predictionid)
+        values (#{actualTableCount},#{newCustomers},#{oldCustomers},#{intentionalCustomers},#{premium},#{activityTime},#{userid},#{predictionid})
+    </insert>
+
+    <!--List<Address> findAddressID(Integer id);-->
+    <select id="findAddressID" resultType="com.buba.bean.Address">
+        select id from address where pid = #{id}
+    </select>
+
+    <!--List<ReportingData> findAllByUserId(@Param("list1") List<Integer> list1);-->
+    <select id="findAllByUserId" resultType="com.buba.bean.ReportingData">
+      SELECT r.*,f.planNumberTables as planTables,a.`name` as addressName
+        FROM reporting_data r
+        join forecast_data f
+        on r.predictionid = f.id
+        join user u
+        on f.userid = u.id
+        join address a
+        on u.addid = a.id
+        where a.id in 
+        <foreach collection="list1" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <!--List<ReportingData> findAddressAll();-->
+    <select id="findAddressAll" resultType="com.buba.bean.ReportingData">
+        SELECT r.id,r.actualTableCount,r.newCustomers,r.oldCustomers,r.intentionalCustomers,r.premium,f.planNumberTables as planTables,a.`name` as addressName
+        FROM reporting_data r
+        join forecast_data f
+        on r.predictionid = f.id
+        join user u
+        on f.userid = u.id
+        join address a
+        on u.addid = a.id
+    </select>
+</mapper>

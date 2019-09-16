@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buba.mapper.PictureSheetMapper">
+
+
+    <!--int insertImage(PictureSheet pictureSheet);-->
+    <insert id="insertImage">
+        insert into picture_sheet(createTime, album_name, activityid)
+        values (now(),#{albumName},#{activityid})
+    </insert>
+</mapper>

@@ -1,0 +1,48 @@
+#springMVC视图解析器
+spring:
+  mvc:
+    view:
+      suffix: .jsp
+      prefix: /jsps/
+#设置静态资源的路径（url）格式
+    static-path-pattern: /static/**
+#配置数据源
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/reception
+    username: root
+    password: root
+
+#设置开启热部署
+  devtools:
+    restart:
+      enabled: true
+
+#mybatis常用的配置项
+#读取mapper映射文件
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+#驼峰命名
+  configuration:
+    map-underscore-to-camel-case: true
+#起别名
+  type-aliases-package: com.buba.bean
+
+#打印sql语句,开发时用，生产要删掉,logging.level.dao层的包名=debug
+logging:
+  level:
+    com:
+      buba:
+        mapper: debug
+
+#修改端口号
+server:
+  port: 8080
+#jsp热部署
+  jsp-servlet:
+    init-parameters:
+      development: true
+
+#图片上传地址
+member:
+  reportPath: E:/image/report
